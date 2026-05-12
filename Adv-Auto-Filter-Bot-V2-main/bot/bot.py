@@ -4,19 +4,14 @@
 
 from pyrogram import Client, enums, __version__
 
-from . import API_HASH, APP_ID, LOGGER, BOT_TOKEN 
-
-from .user import User
+from . import API_HASH, API_ID, LOGGER, BOT_TOKEN 
 
 class Bot(Client):
-    USER: User = None
-    USER_ID: int = None
-
     def __init__(self):
         super().__init__(
             "bot",
             api_hash=API_HASH,
-            api_id=APP_ID,
+            api_id=API_ID,
             plugins={
                 "root": "bot/plugins"
             },
@@ -33,7 +28,6 @@ class Bot(Client):
         self.LOGGER(__name__).info(
             f"@{bot_details.username}  started! "
         )
-        self.USER, self.USER_ID = await User().start()
 
     async def stop(self, *args):
         await super().stop()
